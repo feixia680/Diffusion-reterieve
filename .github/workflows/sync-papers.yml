@@ -67,6 +67,28 @@ jobs:
           download 'https://aclanthology.org/2026.acl-long.1734.pdf' 'papers/06_adjacent_dynamic_retrieval/ACL2026_Adaptive_Retrieval_for_Reasoning.pdf'
           download 'https://aclanthology.org/2026.findings-acl.812.pdf' 'papers/06_adjacent_dynamic_retrieval/ACLFindings2026_QuCo_RAG.pdf'
 
+          # 07 ICLR 2026 — extended dLLM dynamics / inference papers
+          download 'https://proceedings.iclr.cc/paper_files/paper/2026/file/2f992baabfee60ab6add5e4f63b414b1-Paper-Conference.pdf' 'papers/07_iclr2026_dllm_extended/ICLR2026_Optimal_Parallel_Samplers.pdf'
+          download 'https://proceedings.iclr.cc/paper_files/paper/2026/file/f930c6e1292a1160189a0734f22b465b-Paper-Conference.pdf' 'papers/07_iclr2026_dllm_extended/ICLR2026_FlashDLM.pdf'
+          download 'https://proceedings.iclr.cc/paper_files/paper/2026/file/e82cfb0ee6ce329759d0d3c90fbbccc4-Paper-Conference.pdf' 'papers/07_iclr2026_dllm_extended/ICLR2026_SureLock.pdf'
+          download 'https://proceedings.iclr.cc/paper_files/paper/2026/file/585979c057a1b30796cf317063559638-Paper-Conference.pdf' 'papers/07_iclr2026_dllm_extended/ICLR2026_ReFusion.pdf'
+          download 'https://proceedings.iclr.cc/paper_files/paper/2026/file/a1598ba0aa7bd7bdf18e0ad04d993edc-Paper-Conference.pdf' 'papers/07_iclr2026_dllm_extended/ICLR2026_SparseD.pdf'
+          download 'https://proceedings.iclr.cc/paper_files/paper/2026/file/a886eb099223bcbdbd65bc52c852fd61-Paper-Conference.pdf' 'papers/07_iclr2026_dllm_extended/ICLR2026_Beyond_Masks_DID.pdf'
+          download 'https://proceedings.iclr.cc/paper_files/paper/2026/file/257c140d25d1f7fc10f8ae5e17296299-Paper-Conference.pdf' 'papers/07_iclr2026_dllm_extended/ICLR2026_Priming_Vulnerability.pdf'
+          download 'https://proceedings.iclr.cc/paper_files/paper/2026/file/bdff657cb9351656c025da8e1dc538a4-Paper-Conference.pdf' 'papers/07_iclr2026_dllm_extended/ICLR2026_DeepRAG.pdf'
+
+          # 08 ACL 2026 Main — dLLM dynamics + adaptive retrieval/orchestration
+          download 'https://aclanthology.org/2026.acl-long.1231.pdf' 'papers/08_acl2026_dllm_adaptive_retrieval/ACL2026_Diffuse_Thinking.pdf'
+          download 'https://aclanthology.org/2026.acl-long.1978.pdf' 'papers/08_acl2026_dllm_adaptive_retrieval/ACL2026_Denoising_Process_Rewards.pdf'
+          download 'https://aclanthology.org/2026.acl-long.311.pdf' 'papers/08_acl2026_dllm_adaptive_retrieval/ACL2026_UNCODE_Decoding_Biases.pdf'
+          download 'https://aclanthology.org/2026.acl-long.819.pdf' 'papers/08_acl2026_dllm_adaptive_retrieval/ACL2026_Semantic_Aware_Adaptive_Denoising.pdf'
+          download 'https://aclanthology.org/2026.acl-long.994.pdf' 'papers/08_acl2026_dllm_adaptive_retrieval/ACL2026_d_TreeRPO.pdf'
+          download 'https://aclanthology.org/2026.acl-long.1791.pdf' 'papers/08_acl2026_dllm_adaptive_retrieval/ACL2026_QuDAR.pdf'
+          download 'https://aclanthology.org/2026.acl-long.1793.pdf' 'papers/08_acl2026_dllm_adaptive_retrieval/ACL2026_SPARKLE.pdf'
+          download 'https://aclanthology.org/2026.acl-long.939.pdf' 'papers/08_acl2026_dllm_adaptive_retrieval/ACL2026_R3AG.pdf'
+          download 'https://aclanthology.org/2026.acl-long.2013.pdf' 'papers/08_acl2026_dllm_adaptive_retrieval/ACL2026_Environment_Aware_IR.pdf'
+          download 'https://aclanthology.org/2026.acl-long.192.pdf' 'papers/08_acl2026_dllm_adaptive_retrieval/ACL2026_GuarantRAG.pdf'
+
       - name: Commit PDFs
         shell: bash
         run: |
