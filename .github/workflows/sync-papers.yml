@@ -1,0 +1,81 @@
+name: Sync research papers
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'papers/**/*.pdf'
+
+permissions:
+  contents: write
+
+jobs:
+  sync-papers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download open-access PDFs
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          download() {
+            url="$1"
+            out="$2"
+            mkdir -p "$(dirname "$out")"
+            if [ -s "$out" ]; then
+              echo "exists: $out"
+              return 0
+            fi
+            echo "downloading: $out"
+            curl -L --fail --retry 4 --retry-delay 3 \
+              -A 'Mozilla/5.0 paper-sync' \
+              "$url" -o "$out"
+          }
+
+          # 01 Core: dLLM × Dynamic Retrieval / RAG
+          download 'https://arxiv.org/pdf/2606.06474' 'papers/01_core_dynamic_retrieval/ICML2026_SARDI.pdf'
+          download 'https://arxiv.org/pdf/2601.11342' 'papers/01_core_dynamic_retrieval/ARXIV2026_SPREAD.pdf'
+          download 'https://arxiv.org/pdf/2603.17677' 'papers/01_core_dynamic_retrieval/ARXIV2026_ARAM.pdf'
+
+          # 02 dLLM Search Agents / Tool Use
+          download 'https://arxiv.org/pdf/2602.07035' 'papers/02_search_agents_tool_use/SIGIR2026_DLLM_Searcher.pdf'
+
+          # 03 Diffusion as Retriever / Retrieval Representation
+          download 'https://aclanthology.org/2026.acl-industry.69.pdf' 'papers/03_diffusion_as_retriever/ACL2026_Diffusion_Pretrained_Embeddings.pdf'
+          download 'https://arxiv.org/pdf/2605.07210' 'papers/03_diffusion_as_retriever/ARXIV2026_DiffRetriever.pdf'
+          download 'https://arxiv.org/pdf/2603.06397' 'papers/03_diffusion_as_retriever/ICML2026_R4T_RL_Compiled_Diffusion.pdf'
+
+          # 04 dLLM dynamics: phenomenon-first idea mining
+          download 'https://arxiv.org/pdf/2508.19982' 'papers/04_dllm_dynamics_for_idea_mining/ICLR2026_Prophet_Early_Answer_Convergence.pdf'
+          download 'https://arxiv.org/pdf/2511.05563' 'papers/04_dllm_dynamics_for_idea_mining/ICML2026_LookUM.pdf'
+          download 'https://arxiv.org/pdf/2602.10953' 'papers/04_dllm_dynamics_for_idea_mining/ICML2026_SOAR.pdf'
+          download 'https://arxiv.org/pdf/2603.12996' 'papers/04_dllm_dynamics_for_idea_mining/ICML2026_DAPD.pdf'
+          download 'https://arxiv.org/pdf/2601.22954' 'papers/04_dllm_dynamics_for_idea_mining/ICML2026_Residual_Context_Diffusion.pdf'
+          download 'https://arxiv.org/pdf/2603.20216' 'papers/04_dllm_dynamics_for_idea_mining/ICML2026_CoDiLA.pdf'
+          download 'https://arxiv.org/pdf/2509.21474' 'papers/04_dllm_dynamics_for_idea_mining/ICML2026_d2_Trajectory_Likelihood.pdf'
+          download 'https://arxiv.org/pdf/2606.08048' 'papers/04_dllm_dynamics_for_idea_mining/ICML2026_PoE_Bridge.pdf'
+
+          # 05 High-value 2026 preprints exposing unique dLLM phenomena
+          download 'https://arxiv.org/pdf/2604.26841' 'papers/05_high_value_preprints/ARXIV2026_Associative_Memory_DLM.pdf'
+          download 'https://arxiv.org/pdf/2604.11035' 'papers/05_high_value_preprints/ARXIV2026_Introspective_DLM.pdf'
+
+          # 06 Adjacent dynamic-retrieval papers: useful controls / transferable ideas
+          download 'https://aclanthology.org/2026.acl-long.1734.pdf' 'papers/06_adjacent_dynamic_retrieval/ACL2026_Adaptive_Retrieval_for_Reasoning.pdf'
+          download 'https://aclanthology.org/2026.findings-acl.812.pdf' 'papers/06_adjacent_dynamic_retrieval/ACLFindings2026_QuCo_RAG.pdf'
+
+      - name: Commit PDFs
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add papers
+          if git diff --cached --quiet; then
+            echo 'No PDF changes.'
+          else
+            git commit -m 'Sync open-access research PDFs'
+            git push
+          fi
